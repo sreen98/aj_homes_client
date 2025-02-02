@@ -1,0 +1,115 @@
+{
+  "name": "boilerplate-rtk-saga",
+  "version": "0.0.1",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:beethovkjfe/boilerplate-rtk-saga.git"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@hookform/resolvers": "^3.1.0",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.13.2",
+    "@mui/styles": "^5.15.0",
+    "@reduxjs/toolkit": "^1.9.5",
+    "@types/node": "^16.18.32",
+    "@types/react": "^18.2.7",
+    "@types/react-dom": "^18.2.4",
+    "axios": "^1.4.0",
+    "buffer": "^6.0.3",
+    "connected-react-router": "6.9.3",
+    "history": "4.9.0",
+    "html-react-parser": "^5.2.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
+    "react-hook-form": "^7.44.3",
+    "react-i18next": "^12.3.1",
+    "react-player": "^2.15.1",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "5.0.1",
+    "redux-first-history": "^5.1.1",
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^1.2.3",
+    "stylis": "^4.2.0",
+    "stylis-plugin-rtl": "^2.0.2",
+    "tsc": "^2.0.4",
+    "web-vitals": "^2.1.4",
+    "yup": "^1.2.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "npm run lint:fix",
+      "git add --force"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add --force"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run prettier && npm run lint && npm run tsc"
+    }
+  },
+  "scripts": {
+    "start": "npm run assets:build && react-scripts start",
+    "build": "npm run assets:build && react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier . --check",
+    "prettier:fix": "prettier . --write",
+    "tsc": "tsc --noEmit",
+    "tsc:fix": "tsc --noEmit --fix",
+    "icons:build": "node scripts/index-icons",
+    "images:build": "node scripts/index-images",
+    "prepare": "husky install",
+    "assets:build": "npm run icons:build && npm run images:build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@svgr/cli": "^4.3.0",
+    "@svgr/core": "^4.3.0",
+    "@types/history": "^4.7.11",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/redux-logger": "^3.0.9",
+    "@types/stylis": "^4.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.7",
+    "@typescript-eslint/parser": "^5.59.7",
+    "eslint": "^8.11.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.32.2",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.5",
+    "prettier": "^2.8.8",
+    "typescript": "^5.0.4"
+  },
+  "engines": {
+    "npm": ">=5",
+    "node": ">=8.15.1"
+  }
+}

@@ -1,7 +1,8 @@
 import request from 'config/apiConfig';
 
 export const getAllProperties = (data: any) => {
-  return request.get('/properties', data);
+  console.log('🚀 ~ getAllProperties ~ data:', data);
+  return request.get('/properties', { params: data });
 };
 
 export const getFilteredProperties = (data: any) => {

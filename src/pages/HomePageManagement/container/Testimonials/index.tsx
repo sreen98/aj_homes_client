@@ -9,7 +9,7 @@ export default function Testimonial({ isHomePage = false }: { isHomePage?: boole
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getSiteStatus());
-  });
+  }, []);
 
   const plusDivs = (n: number) => {
     setSlideIndex(prevIndex => {

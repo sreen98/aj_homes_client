@@ -17,7 +17,7 @@ const makeStore = (history: History) => {
     reducer: rootReducer,
     devTools: Env.isDev(),
     middleware: (getDefaultMiddleware: any) =>
-      getDefaultMiddleware({ thunk: false }).concat(sagaMiddleware).concat(routerMiddleware(history)).concat(logger)
+      getDefaultMiddleware({ thunk: false }).concat(sagaMiddleware).concat(routerMiddleware(history))
   });
 
   sagaMiddleware.run(rootSaga);

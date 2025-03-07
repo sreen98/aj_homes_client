@@ -1,6 +1,6 @@
 import React from 'react';
 import Footer from 'container/Footer';
-import NavBar from 'container/Nav';
+import NavBar from 'container/Navbar';
 
 export default function MaintenanceDetailsPage() {
   const styles = {

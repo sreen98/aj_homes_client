@@ -9,6 +9,7 @@ export interface Filter {
   bathroom: Number | null;
   bedroom: Number | null;
   price: { from: null | Number; to: null | Number };
+  category?: string;
 }
 
 export interface IProperty {

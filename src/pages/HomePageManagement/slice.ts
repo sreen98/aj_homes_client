@@ -2,7 +2,6 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { PropertyManagementState } from './types';
 import { IProperty } from 'types';
-import { Filter } from '../PropertyManagement/containers/PropertyFilter/types';
 
 export const initialState: PropertyManagementState = {
   loading: false,
@@ -15,7 +14,7 @@ const propertySlice = createSlice({
   name: 'homeManagement',
   initialState,
   reducers: {
-    getAllProperties: (state, action: PayloadAction<Filter>) => {
+    getAllProperties: (state, action: PayloadAction<{ category?: string }>) => {
       state.loading = true;
       state.error = '';
     },

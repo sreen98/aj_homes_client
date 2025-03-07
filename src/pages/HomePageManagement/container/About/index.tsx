@@ -11,7 +11,7 @@ export default function About({ isHomePage = false }: { isHomePage?: boolean }) 
 
   useEffect(() => {
     dispatch(getSiteStatus());
-  });
+  }, []);
 
   return (
     <>
@@ -49,30 +49,25 @@ export default function About({ isHomePage = false }: { isHomePage?: boolean }) 
         justifyContent="center"
       >
         <Grid sx={{ display: 'flex', alignItems: 'center' }} item xs={12} md={6} lg={6} xl={4}>
-          <Card>
+          <Card sx={{ width: '100%' }}>
             <CardMedia
               style={{ maxHeight: '390px' }}
               component="img"
-              image="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Replace with the actual path to your image
+              image="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Image Alt Text"
             />
           </Card>
         </Grid>
-        <Grid
-          sx={{ display: 'flex', alignItems: 'center' }}
-          item
-          xs={12}
-          md={6}
-          lg={6}
-          xl={4}
-          // marginTop={{ md: 10 }}
-          // marginBottom={{ md: 20 }}
-        >
+        <Grid sx={{ display: 'flex', alignItems: 'center' }} item xs={12} md={6} lg={6} xl={8}>
           <Typography>
+            <p style={{ fontWeight: 600, fontSize: '20px', lineHeight: '1.5', marginBottom: '4px' }}>Welcome to</p>
+            <p style={{ fontWeight: 800, fontSize: '36px', color: 'darkred', lineHeight: '1.2', marginTop: '0' }}>
+              AJ Homes & Lettings
+            </p>
             <p style={{ marginBottom: '-30px' }}>
-              Welcome to AJ Homes & Lettings Ltd, where we redefine the letting experience with a fresh perspective and
-              a commitment to bridging the gap in the market. As a letting agency with a difference, we prioritize the
-              needs of both tenants and landlords, striving to create a seamless and efficient environment for all.
+              We redefine the letting experience with a fresh perspective and a commitment to bridging the gap in the
+              market. As a letting agency with a difference, we prioritize the needs of both tenants and landlords,
+              striving to create a seamless and efficient environment for all.
             </p>
             <br />
             <p style={{ marginBottom: '-10px' }}>

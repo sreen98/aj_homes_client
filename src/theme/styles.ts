@@ -1127,8 +1127,7 @@ export const defaultTheme1 = {
     borderRadius: 10
   },
   typography: {
-    fontFamily:
-      '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Jaro"',
+    fontFamily: 'Montserrat, sans-serif',
     h1: {
       fontWeight: 700,
       fontSize: 35
@@ -1250,7 +1249,7 @@ export const defaultTheme = {
     }
   },
   typography: {
-    fontFamily: 'sans-serif',
+    fontFamily: 'Montserrat, sans-serif',
     fontSize: 14,
     fontWeightRegular: 400,
     fontWeightMedium: 500,

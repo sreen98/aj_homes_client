@@ -1,5 +1,5 @@
 import * as React from 'react';
-import NavBar from 'container/Nav';
+import NavBar from 'container/Navbar';
 import Footer from 'container/Footer';
 import { Accordion, AccordionDetails, AccordionSummary, Grid, Typography } from '@mui/material';
 import { FAQData } from './data';

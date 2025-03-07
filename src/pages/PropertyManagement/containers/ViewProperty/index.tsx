@@ -295,7 +295,7 @@ const ViewProperty = () => {
         <Grid item xs={12} sm={12} md={7} lg={8}>
           <Card sx={{ height: 'auto', padding: '30px' }}>
             <Typography sx={{ fontSize: '1.5rem', fontWeight: 600 }}>Overview</Typography>
-            <div>{parse(property?.description)}</div>
+            <div>{parse(property?.description || '')}</div>
             <Divider color="black" />
             <Typography sx={{ fontSize: '1.5rem', fontWeight: 600, marginTop: '2rem' }}>
               More About the Property
@@ -417,18 +417,3 @@ const ViewProperty = () => {
 };
 
 export default ViewProperty;
-
-{
-  /* <List sx={{ marginTop: '20px' }}> */
-}
-{
-  /* //   <ListItem>
-            //     <ListItemButton>
-            //       <ListItemIcon>
-            //         <Directions />
-            //       </ListItemIcon>
-            //       <ListItemText primary="Know property location" />
-            //     </ListItemButton>
-            //   </ListItem>
-            // </List> */
-}

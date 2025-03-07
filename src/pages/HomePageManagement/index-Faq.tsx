@@ -9,7 +9,7 @@ export default function FAQManagement() {
   return (
     <>
       <NavBar />
-      <div style={{ marginTop: '6rem', marginBottom: '3rem' }}>
+      <div style={{ marginTop: '8rem', marginBottom: '3rem' }}>
         <Typography variant="h4" align="center" gutterBottom style={{ color: 'black' }} pb={'1rem'}>
           Frequently Asked Questions
         </Typography>

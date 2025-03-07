@@ -8,7 +8,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import messages from './messages';
 import logo from '../../assets/images/Original.png';
 
-import { localRedirect } from 'utils';
+import { localRedirect, quickLinks } from 'utils';
 
 export default function Footer() {
   const handleClick = (type: string) => {
@@ -38,8 +38,8 @@ export default function Footer() {
         sx={{ paddingTop: 3 }}
         justifyContent={'space-between'}
       >
-        {messages.quickLinks.map(item => (
-          <Grid item xs={12} sm={4} md={3} lg={1} key={item}>
+        {quickLinks?.map(item => (
+          <Grid item xs={12} sm={4} md={3} lg={1} key={item.label}>
             <Typography
               color="white"
               sx={{
@@ -47,10 +47,12 @@ export default function Footer() {
                 backgroundColor: '#8B0000',
                 borderRadius: 1,
                 fontSize: '15px',
-                fontWeight: 600
+                fontWeight: 600,
+                cursor: 'pointer'
               }}
+              onClick={() => localRedirect(item.path)}
             >
-              {item}
+              {item.label}
             </Typography>
           </Grid>
         ))}

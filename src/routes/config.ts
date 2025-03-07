@@ -23,10 +23,10 @@ export const pageRoutes = {
     { path: '/property', component: PropertyDetails, section: 'propertyDetails' },
     { path: '/about', component: AboutUsManagement, section: 'about' },
     { path: '/testimonials', component: TestimonialManagement, section: 'testimonials' },
-    { path: '/maintenance', component: MaintenancePageManagement, section: 'testimonials' },
+    { path: '/maintenance', component: MaintenancePageManagement, section: 'maintenance' },
     { path: '/contact', component: EnquiryManagement, section: 'enquiry' },
     { path: '/faq', component: FAQManagement, section: 'faq' },
     { path: '/privacy-policy', component: PrivacyPolicyManagement, section: 'privacy-policy' },
-    { path: '/maintenance', component: MaintenancePage, section: 'maintenance-page' }
+    { path: '/site-maintenance', component: MaintenancePage, section: 'maintenance-page' }
   ]
 };

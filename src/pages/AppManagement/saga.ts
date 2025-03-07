@@ -18,7 +18,7 @@ export function* getSiteStatus(): SagaIterator {
   try {
     const response = yield call(Endpoints.getSiteStatus);
     if (response?.data?.isMaintenance) {
-      localRedirect('/maintenance');
+      localRedirect('/site-maintenance');
     }
     Actions.getSiteStatusSuccess(response);
   } catch (error) {

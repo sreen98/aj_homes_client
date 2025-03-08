@@ -1,7 +1,6 @@
 import request from 'config/apiConfig';
 
 export const getAllProperties = (data: any) => {
-  console.log('🚀 ~ getAllProperties ~ data:', data);
   return request.get('/properties', { params: data });
 };
 
@@ -10,6 +9,7 @@ export const getFilteredProperties = (data: any) => {
   return request.post('/properties/filter', {
     bathroom: bathroom > 0 ? Number(bathroom) : null,
     bedroom: bedroom > 0 ? Number(bedroom) : null,
+    category: data.category,
     price: { from: price.from === null ? null : Number(price.from), to: price.to === null ? null : Number(price.to) }
   });
 };

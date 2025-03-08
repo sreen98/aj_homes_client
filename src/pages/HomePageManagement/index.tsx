@@ -23,6 +23,8 @@ import SearchProperty from 'pages/PropertyManagement/containers/SearchProperty';
 import DiscoverProperties from './container/DiscoverProperties';
 import HomePropertiesSection from './container/HomePropertiesSection';
 import ServiceBox from './container/ServiceBox';
+import { getEncodedQueryParams, localRedirect } from 'utils';
+import { isEmpty } from 'lodash';
 
 const stateSelector = createStructuredSelector({
   loading: Selectors.makeSelectPropertiesLoading(),
@@ -55,6 +57,15 @@ export default function HomePageManagement() {
     return () => clearInterval(interval);
   }, [services.length]);
 
+  const handleSearchClick = (searchValues: any) => {
+    const search = getEncodedQueryParams({
+      bedrooms: searchValues.bedrooms,
+      bathrooms: searchValues.bathrooms,
+      priceFrom: searchValues.price?.from,
+      priceTo: searchValues.price?.to
+    });
+    if (!isEmpty(searchValues)) localRedirect(`/properties`, { search });
+  };
   return (
     <>
       <NavBar />
@@ -148,7 +159,7 @@ export default function HomePageManagement() {
           </Typography>
         </Grid>
         <Grid item xs={11.5} md={11}>
-          <SearchProperty />
+          <SearchProperty onClickSearch={handleSearchClick} />
         </Grid>
       </Grid>
       <DiscoverProperties />

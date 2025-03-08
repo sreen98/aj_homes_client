@@ -28,7 +28,7 @@ const FilterDropDown = ({ value, handleChange, type }: FilterDropdownType) => {
       }}
     >
       <Select
-        value={dropdownOptions.some(option => option.value === value) ? value : ''}
+        value={dropdownOptions.some(option => option.value === Number(value)) ? value : ''}
         onChange={event => handleChange(event, type)}
         displayEmpty
         inputProps={{ 'aria-label': 'Without label' }}

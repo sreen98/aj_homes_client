@@ -1,11 +1,12 @@
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { Icon } from 'components';
 import FilterDropDown from 'components/FilterDropdown';
 import SearchIcon from '@mui/icons-material/Search';
 import messages from './messages';
+import { isEmpty } from 'lodash';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
@@ -21,15 +22,24 @@ const Item = styled(Paper)(({ theme }) => ({
   })
 }));
 
-const SearchProperty = () => {
+const SearchProperty = ({ onClickSearch, search }: { onClickSearch: any; search?: any }) => {
   const initialState = {
     bathrooms: '',
     bedrooms: '',
     price: { from: null, to: null }
   };
+  useEffect(() => {
+    if (!isEmpty(search)) {
+      setSearchValues({
+        bathrooms: search.bathrooms,
+        bedrooms: search.bedrooms,
+        price: { from: search.priceFrom, to: search.priceTo }
+      });
+    }
+  }, [search]);
 
   const priceDropdownOptions = [
-    { label: '', value: '' },
+    { label: '', value: 'null' },
     { label: '£ 300', value: 300 },
     { label: '£ 350', value: 350 },
     { label: '£ 400', value: 400 },
@@ -64,6 +74,10 @@ const SearchProperty = () => {
         [type]: event.target.value
       }
     }));
+  };
+
+  const handleSearchClick = () => {
+    onClickSearch(searchValues);
   };
 
   return (
@@ -156,7 +170,7 @@ const SearchProperty = () => {
             {messages.price}
           </Typography>
           <FormControl sx={{ minWidth: { xs: 100, md: 120 } }} size="small">
-            <InputLabel id="from-select-label" sx={{ fontSize: '16px' }}>
+            <InputLabel id="from-select-label" sx={{ fontSize: '16px' }} shrink={true}>
               {messages.from}
             </InputLabel>
             <Select
@@ -176,7 +190,7 @@ const SearchProperty = () => {
           </FormControl>
 
           <FormControl sx={{ minWidth: 120 }} size="small">
-            <InputLabel id="to-select-label" sx={{ fontSize: '16px' }}>
+            <InputLabel id="to-select-label" sx={{ fontSize: '16px' }} shrink={true}>
               {messages.to}
             </InputLabel>
             <Select
@@ -213,6 +227,7 @@ const SearchProperty = () => {
               }
             }}
             startIcon={<SearchIcon sx={{ color: 'white' }} />}
+            onClick={handleSearchClick}
           >
             Search
           </Button>

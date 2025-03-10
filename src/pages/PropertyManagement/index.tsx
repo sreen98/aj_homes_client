@@ -51,7 +51,7 @@ export default function PropertyManagement() {
           paddingTop: { xs: 5 },
           backgroundImage: `url(${sl1})`,
           justifyContent: 'center',
-          height: '60vh',
+          height: '50vh',
           marginTop: '90px',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -63,7 +63,7 @@ export default function PropertyManagement() {
         gap={1}
         container
       >
-        <Grid item xs={11.5} md={11} paddingTop={{ xs: 25 }}>
+        <Grid item xs={10} md={10} lg={10} mt={10}>
           <SearchProperty
             onClickSearch={(searchValues: any) => {
               setState({
@@ -142,9 +142,27 @@ export default function PropertyManagement() {
           </Grid>
         </Grid>
 
-        <Grid container spacing={{ xs: 2, md: 3, lg: 4 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+        <Grid container spacing={{ xs: 2, md: 3, lg: 4 }}>
           {loading && <LoadingIndicator visible={loading} />}
-          <PropertyCards properties={properties} />
+          {properties.length > 0 ? (
+            <PropertyCards properties={properties} />
+          ) : (
+            <Box sx={{ backgroundColor: '#f5f5f5', margin: '30px' }}>
+              <Typography
+                mb={3}
+                sx={{
+                  fontWeight: 800,
+                  fontSize: '20px',
+                  padding: '50px',
+                  lineHeight: '1.4',
+                  textAlign: 'center'
+                }}
+              >
+                We couldn't find any properties matching your search at the moment. Try adjusting your search criteria
+                or check back later for new listings!
+              </Typography>
+            </Box>
+          )}
         </Grid>
       </Box>
       <Footer />

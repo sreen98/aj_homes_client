@@ -1,10 +1,34 @@
-import { Grid, Link, Stack, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Grid, Link, Typography } from '@mui/material';
 import { LoadingIndicator } from 'components';
 import PropertyCards from 'pages/PropertyManagement/containers/PropertyCards';
-import React, { useMemo } from 'react';
 
 const HomePropertiesSection = ({ title, properties, loading, isFeatured }: any) => {
   const propertiesArray = isFeatured ? properties.filter((property: any) => property.isFeatured === true) : properties;
+
+  const useViewportSize = () => {
+    const [viewportSize, setViewportSize] = useState({
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+
+    useEffect(() => {
+      const handleResize = () => {
+        setViewportSize({
+          width: window.innerWidth,
+          height: window.innerHeight
+        });
+      };
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
+
+    return viewportSize;
+  };
+  const viewportSize = useViewportSize();
+
   return (
     <>
       {loading && <LoadingIndicator visible={loading} />}
@@ -46,10 +70,9 @@ const HomePropertiesSection = ({ title, properties, loading, isFeatured }: any) 
             </Grid>
 
             <Grid
-              sx={{ justifyContent: 'center' }}
+              sx={{ justifyContent: viewportSize.width > 900 ? 'flex-start' : 'center' }}
               container
               spacing={{ xs: 2, md: 3, lg: 4 }}
-              columns={{ xs: 4, sm: 8, md: 12 }}
               pt={4}
             >
               {loading && <LoadingIndicator visible={loading} />}

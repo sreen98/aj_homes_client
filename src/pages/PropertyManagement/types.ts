@@ -36,4 +36,7 @@ export interface IProperty {
   ytLink: string;
   mapLink: string;
   address: string;
+  moveInDate: string;
+  isFeatured: boolean;
+  category: string;
 }

@@ -81,140 +81,106 @@ const SearchProperty = ({ onClickSearch, search }: { onClickSearch: any; search?
   };
 
   return (
-    <Grid
-      container
-      sx={{
-        backgroundColor: 'white',
-        padding: '20px',
-        borderRadius: '20px',
-        boxShadow: '6px 6px 15px rgba(0, 0, 0, 0.5)',
-        transition: 'all 0.3s ease-in-out',
-        '&:hover': {
-          boxShadow: '6px 6px 15px rgba(0, 0, 0, 0.9)',
-          transform: 'scale(1.01)'
-        }
-      }}
-    >
-      <Grid item xs={12} sm={6} md={3.5} lg={3} justifyItems={{ xs: 'center', md: 'flex-start' }}>
-        <Item
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '20px',
-            padding: '10px',
-            borderRight: { md: '1px solid gray', xs: 'none' }
-          }}
-        >
-          <Icon name="bedrooms" styles={{ height: '22px', width: '22px' }} />
-          <Typography
-            component="p"
+    <>
+      <Grid
+        container
+        sx={{
+          backgroundColor: 'white',
+          padding: '10px',
+          borderRadius: '20px',
+          boxShadow: '6px 6px 15px rgba(0, 0, 0, 0.5)',
+          transition: 'all 0.3s ease-in-out',
+          '&:hover': {
+            boxShadow: '6px 6px 15px rgba(0, 0, 0, 0.9)',
+            transform: 'scale(1.01)'
+          }
+        }}
+        justifyContent="center"
+        alignItems="center"
+        spacing={2}
+      >
+        <Grid item xs={12} sm={6} md={3.5} lg={3.5}>
+          <Item
             sx={{
-              fontSize: '16px',
-              fontWeight: 600,
-              margin: 0,
-              lineHeight: 1
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '20px',
+              padding: '10px',
+              paddingTop: '0px',
+              borderRight: { md: '1px solid gray', xs: 'none' },
+              width: '100%'
             }}
           >
-            {messages.bedrooms}
-          </Typography>
-          <FilterDropDown value={searchValues.bedrooms} handleChange={handleChange} type={'bedrooms'} />
-        </Item>
-      </Grid>
-      <Grid item xs={12} sm={6} md={3.5} lg={3} justifyItems={{ xs: 'center', md: 'flex-start' }}>
-        <Item
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '20px',
-            padding: '10px',
-            borderRadius: 0,
-            borderRight: { md: '1px solid gray', xs: 'none' }
-          }}
-        >
-          <Icon name="bathrooms" styles={{ height: '22px', width: '22px' }} />
-          <Typography
-            component="p"
-            sx={{
-              fontSize: '16px',
-              fontWeight: 600,
-              margin: 0,
-              lineHeight: 1
-            }}
-          >
-            {messages.bathrooms}
-          </Typography>
-          <FilterDropDown value={searchValues.bathrooms} handleChange={handleChange} type={'bathrooms'} />
-        </Item>
-      </Grid>
-      <Grid item xs={12} sm={12} md={5} lg={4.5} justifyItems={{ xs: 'center', md: 'flex-start' }}>
-        <Item
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '20px',
-            padding: '10px',
-            borderRadius: 0,
-            borderRight: { md: '1px solid gray', xs: 'none' }
-          }}
-        >
-          <Icon name="pound" styles={{ height: '22px', width: '22px' }} />
-          <Typography
-            component="p"
-            sx={{
-              fontSize: '16px',
-              fontWeight: 600,
-              margin: 0,
-              lineHeight: 1
-            }}
-          >
-            {messages.price}
-          </Typography>
-          <FormControl sx={{ minWidth: { xs: 100, md: 120 } }} size="small">
-            <InputLabel id="from-select-label" sx={{ fontSize: '16px' }} shrink={true}>
-              {messages.from}
-            </InputLabel>
-            <Select
-              labelId="from-select-label"
-              id="from-select"
-              value={searchValues.price.from}
-              label="From"
-              onChange={event => handlePriceChange(event, 'from')}
-              sx={{ fontSize: '14px', height: '36px', fontWeight: 600 }}
-            >
-              {priceDropdownOptions.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+            <Icon name="bedrooms" styles={{ height: '22px', width: '22px' }} />
+            <Typography sx={{ fontSize: '16px', fontWeight: 600 }}>{messages.bedrooms}</Typography>
+            <FilterDropDown value={searchValues.bedrooms} handleChange={handleChange} type={'bedrooms'} />
+          </Item>
+        </Grid>
 
-          <FormControl sx={{ minWidth: 120 }} size="small">
-            <InputLabel id="to-select-label" sx={{ fontSize: '16px' }} shrink={true}>
-              {messages.to}
-            </InputLabel>
-            <Select
-              labelId="to-select-label"
-              id="to-select"
-              value={searchValues.price.to}
-              label="To"
-              onChange={event => handlePriceChange(event, 'to')}
-              sx={{ fontSize: '14px', height: '36px', fontWeight: 600 }}
-            >
-              {priceDropdownOptions.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Item>
+        <Grid item xs={12} sm={6} md={3.5} lg={3.5}>
+          <Item
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '20px',
+              padding: '10px',
+              paddingTop: '0px',
+              borderRight: { md: '1px solid gray', xs: 'none' },
+              width: '100%'
+            }}
+          >
+            <Icon name="bathrooms" styles={{ height: '22px', width: '22px' }} />
+            <Typography sx={{ fontSize: '16px', fontWeight: 600 }}>{messages.bathrooms}</Typography>
+            <FilterDropDown value={searchValues.bathrooms} handleChange={handleChange} type={'bathrooms'} />
+          </Item>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={6} lg={5} sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Item
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '20px',
+              padding: '10px',
+              paddingTop: '0px',
+              width: '100%',
+              maxWidth: '400px'
+            }}
+          >
+            <Icon name="pound" styles={{ height: '22px', width: '22px' }} />
+            <Typography sx={{ fontSize: '16px', fontWeight: 600 }}>{messages.price}</Typography>
+            <FormControl sx={{ minWidth: { xs: 80, md: 120 } }} size="small">
+              <InputLabel shrink>{messages.from}</InputLabel>
+              <Select value={searchValues.price.from} onChange={event => handlePriceChange(event, 'from')}>
+                {priceDropdownOptions.map(option => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ minWidth: 120 }} size="small">
+              <InputLabel shrink>{messages.to}</InputLabel>
+              <Select value={searchValues.price.to} onChange={event => handlePriceChange(event, 'to')}>
+                {priceDropdownOptions.map(option => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Item>
+        </Grid>
       </Grid>
-      <Grid item xs={12} lg={1.5} justifyItems={{ xs: 'center', md: 'flex-start' }}>
-        <Item>
+      <Grid item xs={12} lg={12} sx={{ display: 'flex', justifyContent: 'center', mt: { lg: 0, xs: 2 } }}>
+        <Item sx={{ backgroundColor: 'transparent' }}>
           <Button
             sx={{
               backgroundColor: '#cf1313',
+              padding: '10px',
               paddingLeft: '15px',
               paddingRight: '15px',
               fontWeight: 600,
@@ -233,7 +199,7 @@ const SearchProperty = ({ onClickSearch, search }: { onClickSearch: any; search?
           </Button>
         </Item>
       </Grid>
-    </Grid>
+    </>
   );
 };
 

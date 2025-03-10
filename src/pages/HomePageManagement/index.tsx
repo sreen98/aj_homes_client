@@ -40,11 +40,37 @@ export default function HomePageManagement() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const useViewportSize = () => {
+    const [viewportSize, setViewportSize] = useState({
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+
+    useEffect(() => {
+      const handleResize = () => {
+        setViewportSize({
+          width: window.innerWidth,
+          height: window.innerHeight
+        });
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      // Cleanup the event listener on component unmount
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []); // Empty dependency array ensures that the effect runs only once, similar to componentDidMount
+
+    return viewportSize;
+  };
+
   const logoImages = [lg3, lg1, lg2, lg4, lg5];
 
   const services = ['Lettings', 'Sales', 'Property Management'];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [isSliding, setIsSliding] = useState(false);
+  const viewportSize = useViewportSize();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -74,7 +100,7 @@ export default function HomePageManagement() {
           paddingTop: { xs: 5 },
           backgroundImage: `url(${sl3})`,
           justifyContent: 'center',
-          height: '60vh',
+          height: viewportSize.width > 780 ? '60vh' : '75vh',
           marginTop: '90px',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -86,92 +112,63 @@ export default function HomePageManagement() {
         gap={1}
         container
       >
-        <Grid item md={4} xs={12} alignContent={'center'}>
-          <Typography
-            sx={{
-              color: 'white',
-              fontSize: '20px',
-              fontWeight: 600,
-              textAlign: { xs: 'center', md: 'right' },
-              '& .highlight': {
-                background: 'rgba(0, 0, 0, 0.3)',
-                borderRadius: '4px',
-                boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)'
-              }
-            }}
-          >
-            {`Get expert assistance with`}
-          </Typography>
+        <Grid container justifyContent="center" alignItems="center" alignContent="center" textAlign="center">
+          <Grid item xs={12}>
+            <Typography
+              sx={{
+                color: 'white',
+                fontSize: viewportSize.width > 500 ? '20px' : '15px',
+                fontWeight: 600,
+                whiteSpace: 'nowrap',
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                gap: '5px'
+              }}
+            >
+              Get expert assistance with&nbsp;
+              <span
+                style={{
+                  transform: isSliding ? 'translateY(100%)' : 'translateY(0)',
+                  transition: 'transform 0.5s ease-in-out',
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                {services[currentWordIndex]}
+              </span>
+              &nbsp;from
+            </Typography>
+          </Grid>
+
+          <Grid item xs={12} sx={{ mt: 1 }}>
+            <Typography
+              sx={{
+                color: 'white',
+                fontSize: viewportSize.width > 500 ? '38px' : '30px',
+                fontWeight: 600,
+                textAlign: 'center',
+                '& .highlight': {
+                  background: 'rgba(0, 0, 0, 0.3)',
+                  padding: '0 8px',
+                  borderRadius: '4px',
+                  boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)'
+                }
+              }}
+            >
+              Birmingham's Leading Property Agency
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item md={3} xs={12} alignContent={'center'}>
-          <Typography
-            sx={{
-              color: 'white',
-              fontSize: '20px',
-              fontWeight: 600,
-              textAlign: 'center',
-              transform: isSliding ? 'translateY(100%)' : 'translateY(0)',
-              transition: 'transform 0.5s ease-in-out',
-              whiteSpace: 'nowrap',
-              '& .highlight': {
-                background: 'rgba(0, 0, 0, 0.3)',
-                borderRadius: '4px',
-                boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)'
-              }
-            }}
-          >
-            {services[currentWordIndex]}
-          </Typography>
-        </Grid>
-        <Grid item md={3} xs={12} alignContent={'center'}>
-          <Typography
-            sx={{
-              color: 'white',
-              fontSize: '20px',
-              fontWeight: 600,
-              textAlign: { xs: 'center', md: 'left' },
-              '& .highlight': {
-                background: 'rgba(0, 0, 0, 0.3)',
-                borderRadius: '4px',
-                boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)'
-              }
-            }}
-          >
-            {`from`}
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography
-            sx={{
-              color: 'white',
-              fontSize: '40px',
-              fontWeight: 600,
-              textAlign: 'center',
-              '& .highlight': {
-                background: 'rgba(0, 0, 0, 0.3)',
-                padding: '0 8px',
-                borderRadius: '4px',
-                boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)'
-              }
-            }}
-          >
-            Birmingham's Leading Property Agency
-          </Typography>
-        </Grid>
-        <Grid item xs={11.5} md={11}>
+
+        <Grid item xs={10} md={10} lg={10} mt={viewportSize.width > 780 ? 1 : 3}>
           <SearchProperty onClickSearch={handleSearchClick} />
         </Grid>
       </Grid>
       <DiscoverProperties />
       <About isHomePage={true} />
-
-      {/* Issue when 1 or 2 properties are there */}
       <HomePropertiesSection title="Featured Properties" properties={properties} loading={loading} isFeatured />
-
-      {/* Issue when 1 or 2 properties are there */}
       <HomePropertiesSection title="Explore Our Newest Listings" properties={properties} loading={loading} />
-
-      <ServiceBox />
+      <ServiceBox viewportSize />
       <Stack alignItems={'center'}>
         <Grid
           container

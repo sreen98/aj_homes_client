@@ -45,7 +45,7 @@ const PropertyCards = ({ isHomePage = false, properties }: { isHomePage?: boolea
               index: React.Key | null | undefined
             ) => {
               return (
-                <Grid item xs={12} sm={4} md={4}>
+                <Grid item xs={12} sm={6} md={4}>
                   <Card
                     onClick={() => handleClick(item)}
                     sx={{
@@ -104,8 +104,7 @@ const PropertyCards = ({ isHomePage = false, properties }: { isHomePage?: boolea
                           overflow: 'hidden',
                           whiteSpace: 'nowrap',
                           textOverflow: 'ellipsis',
-                          display: 'block',
-                          maxWidth: '100%'
+                          display: 'block'
                         }}
                       >
                         {item.title}
@@ -126,7 +125,14 @@ const PropertyCards = ({ isHomePage = false, properties }: { isHomePage?: boolea
 
                       <Typography
                         variant="body2"
-                        sx={{ color: '#555', height: '30px', overflow: 'hidden', fontWeight: 500 }}
+                        sx={{
+                          color: '#555',
+                          height: '30px',
+                          overflow: 'hidden',
+                          fontWeight: 500,
+                          whiteSpace: 'nowrap',
+                          textOverflow: 'ellipsis'
+                        }}
                       >
                         {parse(`${item?.address || ''}`)}
                       </Typography>

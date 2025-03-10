@@ -27,7 +27,7 @@ const handleNavItemClick = (id: string) => {
 
 export default function DiscoverProperties() {
   return (
-    <Grid container sx={{ paddingTop: { xs: 20 } }}>
+    <Grid container sx={{ paddingTop: { xs: 10 } }}>
       <Grid item xs={12}>
         <Typography
           mb={3}

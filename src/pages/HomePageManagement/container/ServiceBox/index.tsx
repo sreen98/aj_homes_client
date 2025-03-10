@@ -1,12 +1,11 @@
 import React from 'react';
 import { Box, Grid, Typography } from '@mui/material';
-import { Icon } from 'components';
 import customerSupport from '../../../../assets/images/customer-support.png';
 import photoCamera from '../../../../assets/images/photo-camera.png';
 import socialMedia from '../../../../assets/images/social-media.png';
 import tool from '../../../../assets/images/tool.png';
 
-const ServiceBox = () => {
+const ServiceBox = ({ viewportSize }: any) => {
   const services: { title: string; logo: string }[] = [
     { title: 'Customer Support', logo: customerSupport },
     { title: 'Professional Photography', logo: photoCamera },
@@ -31,11 +30,11 @@ const ServiceBox = () => {
       >
         <Grid mb={4} xs={12}>
           <Typography
-            variant="h2"
-            sx={{ textAlign: 'center', fontWeight: 700, lineHeight: '40px', letterSpacing: '1.5px' }}
+            variant={viewportSize.width > 500 ? 'h2' : 'h3'}
+            sx={{ textAlign: 'center', fontWeight: 700, lineHeight: '40px', letterSpacing: '1.5px', padding: '10px' }}
           >
             The leading estate agents offering a comprehensive,
-            <br /> all- in-one property marketing solution
+            <br /> all in one property marketing solution
           </Typography>
         </Grid>
 

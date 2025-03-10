@@ -39,4 +39,5 @@ export interface IProperty {
   moveInDate: string;
   isFeatured: boolean;
   category: string;
+  priceDesc: string;
 }

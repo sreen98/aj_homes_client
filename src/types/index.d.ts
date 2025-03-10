@@ -62,4 +62,5 @@ export interface IProperty {
   isFeatured: boolean;
   category: string;
   address: string;
+  priceDesc: string;
 }

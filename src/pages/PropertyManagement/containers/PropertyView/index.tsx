@@ -459,7 +459,7 @@ const PropertyView = () => {
                     color: 'black'
                   }}
                 >
-                  {`£ ${property.price || '-'}`}
+                  {`£ ${property.price || '-'} ${property.priceDesc || ''}`}
                 </Typography>
                 <Button
                   onClick={handleMakeEnquiry}

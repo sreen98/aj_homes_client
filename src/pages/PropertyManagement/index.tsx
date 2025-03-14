@@ -42,6 +42,33 @@ export default function PropertyManagement() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bedrooms, bathrooms, priceFrom, priceTo, category]);
 
+  const useViewportSize = () => {
+    const [viewportSize, setViewportSize] = useState({
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+
+    useEffect(() => {
+      const handleResize = () => {
+        setViewportSize({
+          width: window.innerWidth,
+          height: window.innerHeight
+        });
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      // Cleanup the event listener on component unmount
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []); // Empty dependency array ensures that the effect runs only once, similar to componentDidMount
+
+    return viewportSize;
+  };
+
+  const viewportSize = useViewportSize();
+
   return (
     <>
       <NavBar />
@@ -51,7 +78,7 @@ export default function PropertyManagement() {
           paddingTop: { xs: 5 },
           backgroundImage: `url(${sl1})`,
           justifyContent: 'center',
-          height: '50vh',
+          height: viewportSize.width > 700 ? '50vh' : '70vh',
           marginTop: '90px',
           backgroundSize: 'cover',
           backgroundPosition: 'center',

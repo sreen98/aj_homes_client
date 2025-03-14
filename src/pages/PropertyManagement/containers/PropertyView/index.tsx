@@ -73,9 +73,7 @@ const PropertyView = () => {
   };
 
   const closeImageModal = () => {
-    console.log('Inside');
     setState({ imageModal: false });
-    console.log('sssd', state.imageModal);
   };
 
   const handleCopyLink = () => {
@@ -129,7 +127,8 @@ const PropertyView = () => {
     property?.postcode ? `Post code ${property.postcode}` : null,
     property?.payable ? `${property.payable} Payable` : null,
     property?.area ? `${property.area} sq.ft` : null,
-    property?.moveInDate ? `Move-in date: ${moment(property.moveInDate).format('YYYY-MM-DD')}` : null
+    property?.moveInDate ? `Move-in date: ${moment(property.moveInDate).format('YYYY-MM-DD')}` : null,
+    property?.reference ? `${property.reference}` : null
   ].filter(Boolean);
 
   return (
@@ -248,13 +247,15 @@ const PropertyView = () => {
             xs={12}
             width={{ xs: 20 }}
             mt={3}
-            sx={{
-              height: { xs: 300, sm: 350, md: 400, lg: 600, xl: 1100 }
-            }}
             style={{ position: 'relative', width: '30%', overflow: 'hidden', objectFit: 'contain' }}
           >
-            {property?.images?.length > 0 && viewportSize.width > 700 ? (
-              <Grid sx={{ display: 'flex', maxHeight: { lg: '100%', md: '100%', sm: '100%' } }}>
+            {property?.images?.length > 1 && viewportSize.width > 700 && (
+              <Grid
+                sx={{
+                  display: 'flex',
+                  maxHeight: { lg: '100%', md: '100%', sm: '100%' }
+                }}
+              >
                 <img
                   style={{
                     width: '65%',
@@ -276,8 +277,7 @@ const PropertyView = () => {
                     position: 'absolute',
                     bottom: 0,
                     width: '65%',
-                    height: '70px',
-                    backgroundColor: 'black',
+                    backgroundColor: 'rgba(0,0,0,0.5)',
                     borderBottomLeftRadius: '15px',
                     borderBottomRightRadius: '15px',
                     zIndex: 999,
@@ -307,7 +307,7 @@ const PropertyView = () => {
                         }}
                       >
                         <ImageIcon sx={{ fontSize: 30, color: 'white' }} />
-                        <Typography variant="body2" sx={{ fontSize: 18, fontWeight: 'bold' }}>
+                        <Typography variant="body2" sx={{ fontSize: { md: '18', lg: '16' }, fontWeight: 'bold' }}>
                           {slideIndex} / {property?.images?.length}
                         </Typography>
                       </Box>
@@ -327,7 +327,7 @@ const PropertyView = () => {
                     }}
                     src={
                       property?.images?.length > 1
-                        ? property?.images[1]
+                        ? property?.images[slideIndex % property.images.length]
                         : 'https://easyrental.rentalpro.site/easyrental/static/Resources/NoAvaliblePropertyImage.png'
                     }
                     alt={`Slide ${slideIndex + 1}`}
@@ -343,14 +343,15 @@ const PropertyView = () => {
                     }}
                     src={
                       property?.images?.length > 2
-                        ? property?.images[2]
+                        ? property?.images[(slideIndex + 1) % property.images.length]
                         : 'https://easyrental.rentalpro.site/easyrental/static/Resources/NoAvaliblePropertyImage.png'
                     }
                     alt={`Slide ${slideIndex + 2}`}
                   />
                 </Grid>
               </Grid>
-            ) : property?.images?.length === 0 ? (
+            )}
+            {property?.images?.length === 0 && (
               <Grid sx={{ display: 'flex' }}>
                 <img
                   style={{
@@ -364,24 +365,88 @@ const PropertyView = () => {
                   alt={`Slide ${slideIndex}`}
                 />
               </Grid>
-            ) : (
-              <Grid sx={{ display: 'flex' }}>
-                <img
-                  style={{
-                    width: '100%',
-                    height: '300px',
-                    objectFit: 'fill',
-                    // maxHeight: '20%',
-                    borderRadius: '20px',
-                    maxWidth: '100%'
-                  }}
-                  src={
-                    property?.images?.length > 0
-                      ? property?.images[slideIndex - 1]
-                      : 'https://easyrental.rentalpro.site/easyrental/static/Resources/NoAvaliblePropertyImage.png'
-                  }
-                  alt={`Slide ${slideIndex}`}
-                />
+            )}
+            {property?.images?.length === 1 && viewportSize.width > 700 && (
+              <Grid container>
+                <Grid item xs={12}>
+                  <img
+                    style={{
+                      width: '100%',
+                      objectFit: 'cover',
+                      borderRadius: '20px',
+                      maxWidth: '100%'
+                    }}
+                    src={property?.images?.[0]}
+                    alt={`Slide ${slideIndex}`}
+                  />
+                </Grid>
+              </Grid>
+            )}
+            {viewportSize.width < 700 && (
+              <Grid container sx={{ display: 'flex' }}>
+                <Grid item xs={12}>
+                  <img
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                      maxHeight: '400px',
+                      objectFit: 'cover',
+                      borderRadius: '20px',
+                      maxWidth: '100%'
+                    }}
+                    onClick={() => handleFullScreen()}
+                    src={
+                      property?.images?.length > 0
+                        ? property?.images[slideIndex - 1]
+                        : 'https://easyrental.rentalpro.site/easyrental/static/Resources/NoAvaliblePropertyImage.png'
+                    }
+                    alt={`Slide ${slideIndex}`}
+                  />
+                </Grid>
+                {property?.images?.length > 1 && (
+                  <Grid item xs={12}>
+                    {/* Image Counter */}
+                    <Typography
+                      sx={{
+                        position: 'absolute',
+                        bottom: 10,
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        background: 'rgba(0,0,0,0.5)',
+                        color: 'white',
+                        padding: '5px 10px',
+                        borderRadius: '5px'
+                      }}
+                    >
+                      {slideIndex} / {property?.images?.length}
+                    </Typography>
+                    {/* Navigation Buttons */}
+                    <IconButton
+                      onClick={() => plusDivs(-1)}
+                      sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: 10,
+                        color: 'white',
+                        background: 'rgba(0,0,0,0.5)'
+                      }}
+                    >
+                      <ArrowLeftIcon />
+                    </IconButton>
+                    <IconButton
+                      onClick={() => plusDivs(1)}
+                      sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        right: 10,
+                        color: 'white',
+                        background: 'rgba(0,0,0,0.5)'
+                      }}
+                    >
+                      <ArrowRightIcon />
+                    </IconButton>
+                  </Grid>
+                )}
               </Grid>
             )}
           </Grid>
@@ -413,17 +478,16 @@ const PropertyView = () => {
                     backgroundColor: '#FFD54F',
                     color: 'black',
                     fontWeight: 'bold',
-                    fontSize: '14px',
-                    padding: '5px 22px',
+                    fontSize: '12px',
+                    padding: '5px 30px 5px 35px',
                     textTransform: 'uppercase',
-                    // borderRadius: '4px',
                     clipPath: 'polygon(0% 0%, 10% 50%, 0% 100%, 100% 100%, 100% 0%)'
                   }}
                 >
                   {property?.status}
                 </Box>
 
-                <Box display="flex" alignItems="center" gap={1} mt={4}>
+                <Box display="flex" alignItems="center" gap={1} mt={6}>
                   <Icon name="bedrooms" styles={{ height: '26px', width: '26px' }} />
                   <Tooltip title="Bedrooms" enterDelay={100} leaveDelay={100}>
                     <Typography sx={{ fontWeight: 600, fontSize: '22px', cursor: 'pointer' }}>
@@ -443,7 +507,7 @@ const PropertyView = () => {
                     </Typography>
                   </Tooltip>
                 </Box>
-                <Box display="flex" gap={1} mb={2} alignItems="center">
+                <Box display="flex" gap={1} mb={2} alignItems="center" mt={3}>
                   <Icon name="location" styles={{ height: '22px', width: '22px', flexShrink: 0 }} />
                   <Typography sx={{ fontSize: '18px', cursor: 'pointer', wordBreak: 'break-word', flex: 1 }}>
                     {property?.address}
@@ -554,8 +618,8 @@ const PropertyView = () => {
                 padding: 2,
                 borderRadius: '10px',
                 boxShadow: 24,
-                width: '80%',
-                maxWidth: '1000px',
+                width: '100%',
+                maxWidth: '1200px',
                 outline: 'none',
                 display: 'flex',
                 flexDirection: 'column',

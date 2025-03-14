@@ -100,7 +100,7 @@ export default function HomePageManagement() {
           paddingTop: { xs: 5 },
           backgroundImage: `url(${sl3})`,
           justifyContent: 'center',
-          height: viewportSize.width > 780 ? '60vh' : '75vh',
+          height: viewportSize.width > 780 ? '60vh' : '80vh',
           marginTop: '90px',
           backgroundSize: 'cover',
           backgroundPosition: 'center',

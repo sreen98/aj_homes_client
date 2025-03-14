@@ -1,0 +1,23 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Allowing only specific user to commit
+ALLOWED_USER_NAME="sreen98"
+ALLOWED_EMAIL="sreenath.premnath@gmail.com"
+
+# Get the configured Git username and email
+GIT_NAME=$(git config user.username)
+GIT_EMAIL=$(git config user.email)
+
+# Check if the username and email match the allowed values
+if [ "$GIT_NAME" != "$ALLOWED_USER_NAME" ] || [ "$GIT_EMAIL" != "$ALLOWED_EMAIL" ]; then
+  echo "❌ Commit rejected: Git user name or email does not match the required values."
+  echo "Configured user.name: $GIT_NAME"
+  echo "Configured user.email: $GIT_EMAIL"
+  echo "Please set the correct user details using:"
+  echo "  git config --global user.name \"$ALLOWED_USER_NAME\""
+  echo "  git config --global user.email \"$ALLOWED_EMAIL\""
+  exit 1
+fi
+
+

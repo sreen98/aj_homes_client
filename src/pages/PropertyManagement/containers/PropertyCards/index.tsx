@@ -39,7 +39,9 @@ const PropertyCards = ({ isHomePage = false, properties }: { isHomePage?: boolea
                   | undefined;
                 address: any;
                 price: any;
+                priceDesc: any;
                 bathroom: any;
+                floor: any;
                 bedroom: any;
               },
               index: React.Key | null | undefined
@@ -94,6 +96,10 @@ const PropertyCards = ({ isHomePage = false, properties }: { isHomePage?: boolea
                         <Typography variant="body2" sx={{ fontWeight: 600 }}>
                           {item.bathroom}
                         </Typography>
+                        <Icon name="stairs" styles={{ height: '20px', width: '20px', marginLeft: '10px' }} />
+                        <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                          {item.floor}
+                        </Typography>
                       </Box>
 
                       <Typography
@@ -120,7 +126,7 @@ const PropertyCards = ({ isHomePage = false, properties }: { isHomePage?: boolea
                           WebkitTextStroke: '1px #555'
                         }}
                       >
-                        £ {item?.price}
+                        £ {item?.price} {item?.priceDesc ? item.priceDesc : null}
                       </Typography>
 
                       <Typography

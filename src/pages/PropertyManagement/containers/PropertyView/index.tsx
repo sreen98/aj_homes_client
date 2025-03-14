@@ -6,7 +6,7 @@ import * as Selectors from '../../selectors';
 import { useSelector } from 'react-redux';
 import { getEncodedQueryParams, localRedirect } from 'utils';
 import parse from 'html-react-parser';
-import { Icon } from 'components';
+import { Icon, LoadingIndicator } from 'components';
 import target from '../../../../assets/images/target.png';
 import StarIcon from '@mui/icons-material/Star';
 import moment from 'moment';
@@ -57,7 +57,10 @@ const PropertyView = () => {
   const [state, setState] = useState({
     imageModal: false
   });
-
+  const [loading, setLoading] = useState(true);
+  const handleImageLoad = () => {
+    setLoading(false);
+  };
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -92,6 +95,7 @@ const PropertyView = () => {
       }
       return newIndex;
     });
+    setLoading(true);
   };
 
   const handleMakeEnquiry = () => {
@@ -108,7 +112,7 @@ const PropertyView = () => {
       <iframe
         title="Location Map"
         width="100%"
-        height="500"
+        height="360px"
         loading="lazy"
         frameBorder="0"
         style={{ border: 0 }}
@@ -133,6 +137,7 @@ const PropertyView = () => {
 
   return (
     <>
+      {loading && <LoadingIndicator visible={loading} />}
       <Grid
         onClick={() => {
           window.open('https://wa.me/message/ZU2QD6XT7TCRM1');
@@ -247,7 +252,16 @@ const PropertyView = () => {
             xs={12}
             width={{ xs: 20 }}
             mt={3}
-            style={{ position: 'relative', width: '30%', overflow: 'hidden', objectFit: 'contain' }}
+            style={{ position: 'relative', width: '30%', overflow: 'hidden', objectFit: 'cover' }}
+            sx={{
+              height: {
+                xs: 300,
+                sm: property?.images?.length === 1 ? '100vh' : 350,
+                md: property?.images?.length === 1 ? '100vh' : 400,
+                lg: property?.images?.length === 1 ? '100vh' : 550,
+                xl: property?.images?.length === 1 ? '100vh' : 600
+              }
+            }}
           >
             {property?.images?.length > 1 && viewportSize.width > 700 && (
               <Grid
@@ -271,50 +285,8 @@ const PropertyView = () => {
                       : 'https://easyrental.rentalpro.site/easyrental/static/Resources/NoAvaliblePropertyImage.png'
                   }
                   alt={`Slide ${slideIndex}`}
+                  onLoad={handleImageLoad}
                 />
-                <Grid
-                  style={{
-                    position: 'absolute',
-                    bottom: 0,
-                    width: '65%',
-                    backgroundColor: 'rgba(0,0,0,0.5)',
-                    borderBottomLeftRadius: '15px',
-                    borderBottomRightRadius: '15px',
-                    zIndex: 999,
-                    opacity: 0.7,
-                    color: 'white',
-                    padding: '10px'
-                  }}
-                >
-                  <Grid container justifyContent="space-between" alignItems="center" sx={{ padding: '0 10px' }}>
-                    <Grid item>
-                      <FullscreenIcon sx={{ fontSize: 48, color: 'white' }} onClick={() => handleFullScreen()} />
-                    </Grid>
-
-                    <Grid item sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <ArrowLeftIcon sx={{ fontSize: 60, color: 'white' }} onClick={() => plusDivs(-1)} />
-                      <ArrowRightIcon sx={{ fontSize: 60, color: 'white' }} onClick={() => plusDivs(1)} />
-                      <Box
-                        sx={{
-                          backgroundColor: 'darkred',
-                          color: 'white',
-                          fontWeight: 600,
-                          padding: '8px 12px',
-                          borderRadius: '10px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '6px'
-                        }}
-                      >
-                        <ImageIcon sx={{ fontSize: 30, color: 'white' }} />
-                        <Typography variant="body2" sx={{ fontSize: { md: '18', lg: '16' }, fontWeight: 'bold' }}>
-                          {slideIndex} / {property?.images?.length}
-                        </Typography>
-                      </Box>
-                    </Grid>
-                  </Grid>
-                </Grid>
-
                 <Grid sx={{ marginLeft: '8px', marginBottom: '5px' }}>
                   <img
                     style={{
@@ -331,6 +303,7 @@ const PropertyView = () => {
                         : 'https://easyrental.rentalpro.site/easyrental/static/Resources/NoAvaliblePropertyImage.png'
                     }
                     alt={`Slide ${slideIndex + 1}`}
+                    onLoad={handleImageLoad}
                   />
                   <img
                     style={{
@@ -347,6 +320,7 @@ const PropertyView = () => {
                         : 'https://easyrental.rentalpro.site/easyrental/static/Resources/NoAvaliblePropertyImage.png'
                     }
                     alt={`Slide ${slideIndex + 2}`}
+                    onLoad={handleImageLoad}
                   />
                 </Grid>
               </Grid>
@@ -363,6 +337,7 @@ const PropertyView = () => {
                   }}
                   src={'https://easyrental.rentalpro.site/easyrental/static/Resources/NoAvaliblePropertyImage.png'}
                   alt={`Slide ${slideIndex}`}
+                  onLoad={handleImageLoad}
                 />
               </Grid>
             )}
@@ -378,6 +353,7 @@ const PropertyView = () => {
                     }}
                     src={property?.images?.[0]}
                     alt={`Slide ${slideIndex}`}
+                    onLoad={handleImageLoad}
                   />
                 </Grid>
               </Grid>
@@ -401,6 +377,7 @@ const PropertyView = () => {
                         : 'https://easyrental.rentalpro.site/easyrental/static/Resources/NoAvaliblePropertyImage.png'
                     }
                     alt={`Slide ${slideIndex}`}
+                    onLoad={handleImageLoad}
                   />
                 </Grid>
                 {property?.images?.length > 1 && (
@@ -450,6 +427,58 @@ const PropertyView = () => {
               </Grid>
             )}
           </Grid>
+          {viewportSize.width > 700 && (
+            <Grid
+              mt={1}
+              style={{
+                width: '100%',
+                backgroundColor: 'black',
+                borderBottomLeftRadius: '15px',
+                borderBottomRightRadius: '15px',
+                zIndex: 999,
+                opacity: 0.8,
+                color: 'white',
+                padding: '2px'
+              }}
+            >
+              <Grid container justifyContent="space-between" alignItems="center" sx={{ padding: '0 10px' }}>
+                <Grid item md={2} sm={3}>
+                  <FullscreenIcon sx={{ fontSize: 48, color: 'white' }} onClick={() => handleFullScreen()} />
+                </Grid>
+
+                <Grid md={2} sm={3} justifyContent="right">
+                  <ArrowLeftIcon sx={{ fontSize: 60, color: 'white' }} onClick={() => plusDivs(-1)} />
+                  <ArrowRightIcon sx={{ fontSize: 60, color: 'white' }} onClick={() => plusDivs(1)} />
+                </Grid>
+
+                <Grid
+                  item
+                  sx={{ display: 'flex', alignItems: 'center', justifyContent: 'right', gap: '10px' }}
+                  sm={6}
+                  md={2}
+                  lg={2}
+                >
+                  <Box
+                    sx={{
+                      backgroundColor: 'darkred',
+                      color: 'white',
+                      fontWeight: 600,
+                      padding: '8px 12px',
+                      borderRadius: '10px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px'
+                    }}
+                  >
+                    <ImageIcon sx={{ fontSize: 30, color: 'white' }} />
+                    <Typography variant="body2" sx={{ fontSize: { md: '18', lg: '16' }, fontWeight: 'bold' }}>
+                      {slideIndex} / {property?.images?.length}
+                    </Typography>
+                  </Box>
+                </Grid>
+              </Grid>
+            </Grid>
+          )}
 
           <Grid container justifyContent="space-between" alignItems="center" mt={5}>
             <Grid xs={12} md={7}>
@@ -591,7 +620,7 @@ const PropertyView = () => {
             <Grid container xs={12} md={12} mt={3}>
               <Grid md={6} xs={12} sx={{ padding: '10px', height: { xs: '350px', sm: '500px' } }}>
                 {property.ytLink ? (
-                  <ReactPlayer url={property?.ytLink && property.ytLink} controls={true} width="100%" height="80%" />
+                  <ReactPlayer url={property?.ytLink && property.ytLink} controls={true} width="100%" />
                 ) : (
                   <img
                     style={{ width: '100%', height: '100%' }}
@@ -651,6 +680,7 @@ const PropertyView = () => {
                   borderRadius: '10px',
                   objectFit: 'contain'
                 }}
+                onLoad={handleImageLoad}
               />
             </Box>
           </Modal>

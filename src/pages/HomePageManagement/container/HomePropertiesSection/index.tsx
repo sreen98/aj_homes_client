@@ -61,7 +61,8 @@ const HomePropertiesSection = ({ title, properties, loading, isFeatured }: any) 
                     marginTop: '1rem',
                     color: 'darkred',
                     textDecoration: 'none',
-                    fontWeight: 700
+                    fontWeight: 700,
+                    zIndex: 100
                   }}
                 >
                   {`See all ${isFeatured ? 'featured' : 'new'} properties  >`}

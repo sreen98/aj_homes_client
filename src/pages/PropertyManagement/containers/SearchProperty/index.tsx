@@ -1,4 +1,4 @@
-import { Button, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import { Button, Grid, MenuItem, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
@@ -152,26 +152,38 @@ const SearchProperty = ({ onClickSearch, search }: { onClickSearch: any; search?
           >
             <Icon name="pound" styles={{ height: '22px', width: '22px' }} />
             <Typography sx={{ fontSize: '16px', fontWeight: 600 }}>{messages.price}</Typography>
-            <FormControl sx={{ minWidth: { xs: 80, md: 120 } }} size="small">
-              <InputLabel shrink>{messages.from}</InputLabel>
-              <Select value={searchValues.price.from} onChange={event => handlePriceChange(event, 'from')}>
-                {priceDropdownOptions.map(option => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl sx={{ minWidth: 120 }} size="small">
-              <InputLabel shrink>{messages.to}</InputLabel>
-              <Select value={searchValues.price.to} onChange={event => handlePriceChange(event, 'to')}>
-                {priceDropdownOptions.map(option => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <TextField
+              size="small"
+              sx={{ minWidth: { xs: 100, md: 120 } }}
+              id="outlined-select-from"
+              select
+              label={messages.from}
+              value={searchValues.price.from}
+              InputLabelProps={{ shrink: !!searchValues.price.from }}
+              onChange={e => handlePriceChange(e as React.ChangeEvent<HTMLInputElement>, 'from')}
+            >
+              {priceDropdownOptions.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              size="small"
+              sx={{ minWidth: { xs: 100, md: 120 } }}
+              id="outlined-select-to"
+              select
+              InputLabelProps={{ shrink: !!searchValues.price.to }}
+              label={messages.to}
+              value={searchValues.price.to}
+              onChange={e => handlePriceChange(e as React.ChangeEvent<HTMLInputElement>, 'to')}
+            >
+              {priceDropdownOptions.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
           </Item>
         </Grid>
       </Grid>

@@ -623,7 +623,7 @@ const PropertyView = () => {
                   <ReactPlayer url={property?.ytLink && property.ytLink} controls={true} width="100%" />
                 ) : (
                   <img
-                    style={{ width: '100%', height: '100%' }}
+                    style={{ width: '100%', height: '360px' }}
                     src="https://www.47pitches.com/contents/images/no-video.jpg"
                     alt="No video available"
                   />

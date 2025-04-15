@@ -78,7 +78,7 @@ export default function PropertyManagement() {
           paddingTop: { xs: 5 },
           backgroundImage: `url(${sl1})`,
           justifyContent: 'center',
-          height: viewportSize.width > 700 ? '50vh' : '70vh',
+          height: viewportSize.width > 700 ? '60vh' : '70vh',
           marginTop: '90px',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -98,11 +98,12 @@ export default function PropertyManagement() {
                 bathrooms: searchValues.bathrooms,
                 bedrooms: searchValues.bedrooms,
                 priceFrom: searchValues.price.from,
-                priceTo: searchValues.price.to
+                priceTo: searchValues.price.to,
+                category: searchValues?.category
               });
               dispatch(
                 getFilteredProperties({
-                  category,
+                  category: searchValues?.category,
                   bedroom: searchValues.bedrooms,
                   bathroom: searchValues.bathrooms,
                   price: { from: searchValues.price.from, to: searchValues.price.to }
@@ -155,7 +156,7 @@ export default function PropertyManagement() {
                 setState(initialState);
                 dispatch(
                   getFilteredProperties({
-                    category: state.category,
+                    category: 'forSale',
                     price: { from: null, to: null },
                     bedroom: null,
                     bathroom: null

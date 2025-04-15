@@ -124,14 +124,14 @@ const PropertyView = () => {
 
   const featuresArray = [
     property?.furnishingType && `${property.furnishingType}`,
-    property?.tenure ? `${property.tenure} months tenure` : null,
-    property?.deposit ? `£ ${property.deposit} deposit` : null,
+    property?.tenure ? `${property.tenure} Months Tenure` : null,
+    property?.deposit ? `£ ${property.deposit} Deposit` : null,
     property?.lettingType && `${property.lettingType}`,
-    property?.contractLength ? `${property.contractLength} months contract` : null,
-    property?.postcode ? `Post code ${property.postcode}` : null,
+    property?.contractLength ? `${property.contractLength} Months Contract` : null,
+    property?.postcode ? `Post Code ${property.postcode}` : null,
     property?.payable ? `${property.payable} Payable` : null,
     property?.area ? `${property.area} sq.ft` : null,
-    property?.moveInDate ? `Move-in date: ${moment(property.moveInDate).format('YYYY-MM-DD')}` : null,
+    property?.moveInDate ? `Move-in Date: ${moment(property.moveInDate).format('DD-MM-YYYY')}` : null,
     property?.reference ? `${property.reference}` : null
   ].filter(Boolean);
 
@@ -169,9 +169,9 @@ const PropertyView = () => {
             marginBottom: '20px',
             width: viewportSize.width > 500 ? '96vw' : '100vw',
             backgroundColor: 'white',
-            margin: viewportSize.width > 500 ? '2rem' : '0rem',
+            margin: viewportSize.width > 600 ? '2rem' : '0rem',
             borderRadius: '10px',
-            padding: '2rem'
+            padding: viewportSize.width > 600 ? '2rem' : '0.7rem'
           }}
         >
           <Grid container justifyContent="space-between" alignItems="center">
@@ -326,21 +326,22 @@ const PropertyView = () => {
               </Grid>
             )}
             {property?.images?.length === 0 && (
-              <Grid sx={{ display: 'flex' }}>
+              <Grid sx={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
                 <img
                   style={{
                     width: '100%',
-                    height: '80vh',
+                    height: viewportSize.width < 700 ? '50vh' : '80vh',
+                    maxHeight: '80vh',
                     objectFit: 'cover',
-                    maxWidth: '100%',
                     borderRadius: '15px'
                   }}
                   src={'https://easyrental.rentalpro.site/easyrental/static/Resources/NoAvaliblePropertyImage.png'}
-                  alt={`Slide ${slideIndex}`}
+                  alt="No Available Image"
                   onLoad={handleImageLoad}
                 />
               </Grid>
             )}
+
             {property?.images?.length === 1 && viewportSize.width > 700 && (
               <Grid container>
                 <Grid item xs={12}>
@@ -480,16 +481,16 @@ const PropertyView = () => {
             </Grid>
           )}
 
-          <Grid container justifyContent="space-between" alignItems="center" mt={5}>
-            <Grid xs={12} md={7}>
+          <Grid container justifyContent="space-between" mt={5}>
+            <Grid xs={12} md={7} order={{ md: 1, sm: 2, xs: 2 }}>
               <Typography component="p" sx={{ fontSize: '24px', fontWeight: 600 }}>
                 {property?.title}
               </Typography>
-              <Typography mt={2} sx={{ fontSize: viewportSize.width < 500 ? '16px' : '18px' }}>
+              <Typography mt={2} sx={{ fontSize: viewportSize.width < 500 ? '16px' : '18px', textAlign: 'justify' }}>
                 <div>{parse(property?.description || '')}</div>
               </Typography>
             </Grid>
-            <Grid xs={12} md={4} position="relative">
+            <Grid xs={12} md={4} position="relative" order={{ md: 2, sm: 1, xs: 1 }} mb={3}>
               <Grid
                 sx={{
                   border: '2px solid #e9e9e9',
@@ -572,7 +573,7 @@ const PropertyView = () => {
                 </Button>
               </Grid>
             </Grid>
-            <Grid container xs={12} md={12} position="relative" mt={5}>
+            <Grid container xs={12} md={12} position="relative" mt={5} order={{ md: 3, sm: 3, xs: 3 }}>
               <Grid
                 container
                 sx={{ border: '2px solid #e9e9e9', borderRadius: '10px', padding: '20px', position: 'relative' }}
@@ -617,7 +618,7 @@ const PropertyView = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid container xs={12} md={12} mt={3}>
+            <Grid container xs={12} md={12} mt={3} order={{ md: 4, sm: 4, xs: 4 }}>
               <Grid md={6} xs={12} sx={{ padding: '10px', height: { xs: '350px', sm: '500px' } }}>
                 {property.ytLink ? (
                   <ReactPlayer url={property?.ytLink && property.ytLink} controls={true} width="100%" />
@@ -629,7 +630,7 @@ const PropertyView = () => {
                   />
                 )}
               </Grid>
-              <Grid md={6} xs={12} sx={{ padding: '10px' }}>
+              <Grid md={6} xs={12} sx={{ padding: '10px', marginTop: viewportSize.width < 600 ? '20px' : '0px' }}>
                 {property.mapLink && <MapComponent mapLink={property?.mapLink} />}
               </Grid>
             </Grid>

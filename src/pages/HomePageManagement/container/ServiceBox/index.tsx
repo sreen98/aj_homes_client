@@ -16,9 +16,9 @@ const ServiceBox = ({ viewportSize }: any) => {
   return (
     <Grid container xs={12} justifyContent={'center'}>
       <Grid
-        container
-        md={10.5}
+        md={10}
         xs={11}
+        container
         justifyContent={'center'}
         sx={{
           width: 'auto',
@@ -28,7 +28,7 @@ const ServiceBox = ({ viewportSize }: any) => {
           color: 'white'
         }}
       >
-        <Grid mb={4} xs={12}>
+        <Grid item mb={4} xs={12}>
           <Typography
             variant={viewportSize.width > 500 ? 'h2' : 'h3'}
             sx={{ textAlign: 'center', fontWeight: 700, lineHeight: '40px', letterSpacing: '1.5px', padding: '10px' }}
@@ -39,7 +39,7 @@ const ServiceBox = ({ viewportSize }: any) => {
         </Grid>
 
         {services.map((service, index) => (
-          <Grid key={index} style={{ textAlign: 'center' }} mt={4} mb={4} md={6} lg={3} xs={12}>
+          <Grid item key={index} style={{ textAlign: 'center' }} mt={4} mb={4} md={3} lg={3} xs={12}>
             <Box
               component="img"
               src={service.logo}

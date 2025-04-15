@@ -88,7 +88,8 @@ export default function HomePageManagement() {
       bedrooms: searchValues.bedrooms,
       bathrooms: searchValues.bathrooms,
       priceFrom: searchValues.price?.from,
-      priceTo: searchValues.price?.to
+      priceTo: searchValues.price?.to,
+      category: searchValues?.category
     });
     if (!isEmpty(searchValues)) localRedirect(`/properties`, { search });
   };
@@ -169,24 +170,23 @@ export default function HomePageManagement() {
       <HomePropertiesSection title="Featured Properties" properties={properties} loading={loading} isFeatured />
       <HomePropertiesSection title="Explore Our Newest Listings" properties={properties} loading={loading} />
       <ServiceBox viewportSize />
-      <Stack alignItems={'center'}>
-        <Grid
-          container
-          sx={{ paddingBottom: '40px', justifyContent: 'center', alignItems: 'center', cursor: 'default' }}
-        >
-          {logoImages.map((image, index) => (
-            <Grid item key={index} sx={{ margin: 6 }}>
-              <Box
-                component="img"
-                src={image}
-                alt={`logo ${index + 1}`}
-                sx={{ maxWidth: '180px', maxHeight: '150px' }}
-              />
-            </Grid>
-          ))}
-        </Grid>
-        <Divider orientation="horizontal" variant="middle" component={'big'} />
-      </Stack>
+      <Grid
+        sx={{
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          cursor: 'default',
+          padding: '0 100px 40px 100px'
+        }}
+        container
+        marginTop={10}
+      >
+        {logoImages.map((image, index) => (
+          <Grid item key={index} xs={5} md={2} sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Box component="img" src={image} alt={`logo ${index + 1}`} sx={{ maxWidth: '180px', maxHeight: '150px' }} />
+          </Grid>
+        ))}
+      </Grid>
+      <Divider orientation="horizontal" variant="middle" component={'big'} />
       <Footer />
     </>
   );

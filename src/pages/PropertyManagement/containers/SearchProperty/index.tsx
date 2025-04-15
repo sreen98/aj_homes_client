@@ -1,4 +1,4 @@
-import { Button, Grid, MenuItem, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, IconButton, MenuItem, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
@@ -7,6 +7,7 @@ import FilterDropDown from 'components/FilterDropdown';
 import SearchIcon from '@mui/icons-material/Search';
 import messages from './messages';
 import { isEmpty } from 'lodash';
+import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
@@ -35,8 +36,28 @@ const SearchProperty = ({ onClickSearch, search }: { onClickSearch: any; search?
         bedrooms: search.bedrooms,
         price: { from: search.priceFrom, to: search.priceTo }
       });
+      if (search.category) setSelectedCategory(search.category);
     }
   }, [search]);
+  useEffect(() => {});
+
+  const [selectedCategory, setSelectedCategory] = useState('forSale');
+  const categoryOptions = [
+    { label: 'For Sale', value: 'forSale' },
+    { label: 'Residential lettings', value: 'residentialLettings' },
+    { label: 'Student Lettings', value: 'studentLettings' }
+  ];
+
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+    setSearchValues(() => ({
+      // ...prevValues,
+      bathrooms: '',
+      bedrooms: '',
+      price: { from: null, to: null },
+      category: category
+    }));
+  };
 
   const priceDropdownOptions = [
     { label: '', value: 'null' },
@@ -55,6 +76,33 @@ const SearchProperty = ({ onClickSearch, search }: { onClickSearch: any; search?
     { label: '£ 900', value: 900 },
     { label: '£ 950', value: 950 },
     { label: '£ 1000', value: 1000 }
+  ];
+
+  const lettingsPriceDropdownOptions = [
+    { label: '', value: 'null' },
+    { label: '£ 300', value: 300 },
+    { label: '£ 400', value: 400 },
+    { label: '£ 500', value: 500 },
+    { label: '£ 600', value: 600 },
+    { label: '£ 700', value: 700 },
+    { label: '£ 800', value: 800 },
+    { label: '£ 900', value: 900 },
+    { label: '£ 1000', value: 1000 },
+    { label: '£ 1100', value: 1100 },
+    { label: '£ 1200', value: 1200 },
+    { label: '£ 1300', value: 1300 },
+    { label: '£ 1400', value: 1400 },
+    { label: '£ 1500', value: 1500 },
+    { label: '£ 1600', value: 1600 },
+    { label: '£ 1700', value: 1700 },
+    { label: '£ 1800', value: 1800 },
+    { label: '£ 1900', value: 1900 },
+    { label: '£ 2000', value: 2000 },
+    { label: '£ 2100', value: 2100 },
+    { label: '£ 2200', value: 2200 },
+    { label: '£ 2300', value: 2300 },
+    { label: '£ 2400', value: 2400 },
+    { label: '£ 2500', value: 2500 }
   ];
 
   const [searchValues, setSearchValues] = useState<any>(initialState);
@@ -80,8 +128,129 @@ const SearchProperty = ({ onClickSearch, search }: { onClickSearch: any; search?
     onClickSearch(searchValues);
   };
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNext = () => {
+    setCurrentIndex(prev => {
+      const newIndex = (prev + 1) % categoryOptions.length;
+      setSelectedCategory(categoryOptions[newIndex].value);
+      setSearchValues((prevValues: any) => ({
+        ...prevValues,
+        category: categoryOptions[newIndex].value
+      }));
+      return newIndex;
+    });
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex(prev => {
+      const newIndex = prev === 0 ? categoryOptions.length - 1 : prev - 1;
+      setSelectedCategory(categoryOptions[newIndex].value);
+      setSearchValues((prevValues: any) => ({
+        ...prevValues,
+        category: categoryOptions[newIndex].value
+      }));
+      return newIndex;
+    });
+  };
+
   return (
     <>
+      <Grid sx={{ marginBottom: '16px' }}>
+        <Grid
+          container
+          spacing={2}
+          justifyContent="center"
+          sx={{
+            display: { xs: 'none', md: 'flex' },
+            margin: 0
+          }}
+        >
+          {categoryOptions.map(category => (
+            <Grid item key={category.value} xs={4} sm={4} md={3} lg={3}>
+              <Box
+                onClick={() => handleCategorySelect(category.value)}
+                sx={{
+                  padding: '18px',
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  fontWeight: 600,
+                  borderRadius: '4px',
+                  minWidth: '160px',
+                  backgroundColor: selectedCategory === category.value ? '#cf1313' : 'white',
+                  color: selectedCategory === category.value ? 'white' : 'black',
+                  '&:hover': {
+                    backgroundColor: '#cf1313',
+                    color: 'white'
+                  }
+                }}
+              >
+                {category.label}
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+
+        <Box
+          sx={{
+            display: { xs: 'flex', md: 'none' },
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '12px 24px',
+              textAlign: 'center',
+              cursor: 'pointer',
+              fontWeight: 600,
+              borderRadius: '4px',
+              width: '100%',
+              maxWidth: '260px',
+              backgroundColor: selectedCategory === categoryOptions[currentIndex].value ? '#cf1313' : 'white',
+              color: selectedCategory === categoryOptions[currentIndex].value ? 'white' : 'black',
+              '&:hover': {
+                backgroundColor: '#cf1313',
+                color: 'white'
+              },
+              position: 'relative'
+            }}
+            onClick={() => handleCategorySelect(categoryOptions[currentIndex].value)}
+          >
+            <IconButton
+              onClick={e => {
+                e.stopPropagation();
+                handlePrev();
+              }}
+              sx={{
+                position: 'absolute',
+                left: '10px',
+                color: selectedCategory === categoryOptions[currentIndex].value ? 'white' : 'black'
+              }}
+            >
+              <ChevronLeft />
+            </IconButton>
+            <Box sx={{ flexGrow: 1, textAlign: 'center' }}>{categoryOptions[currentIndex].label}</Box>
+            <IconButton
+              onClick={e => {
+                e.stopPropagation();
+                handleNext();
+              }}
+              sx={{
+                position: 'absolute',
+                right: '10px',
+                color: selectedCategory === categoryOptions[currentIndex].value ? 'white' : 'black'
+              }}
+            >
+              <ChevronRight />
+            </IconButton>
+          </Box>
+        </Box>
+      </Grid>
+
       <Grid
         container
         sx={{
@@ -89,11 +258,7 @@ const SearchProperty = ({ onClickSearch, search }: { onClickSearch: any; search?
           padding: '10px',
           borderRadius: '20px',
           boxShadow: '6px 6px 15px rgba(0, 0, 0, 0.5)',
-          transition: 'all 0.3s ease-in-out',
-          '&:hover': {
-            boxShadow: '6px 6px 15px rgba(0, 0, 0, 0.9)',
-            transform: 'scale(1.01)'
-          }
+          transition: 'all 0.3s ease-in-out'
         }}
         justifyContent="center"
         alignItems="center"

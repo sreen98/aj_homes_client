@@ -39,6 +39,7 @@ const PropertyCards = ({ isHomePage = false, properties }: { isHomePage?: boolea
                   | null
                   | undefined;
                 address: any;
+                status: any;
                 price: any;
                 priceDesc: any;
                 bathroom: any;
@@ -84,7 +85,7 @@ const PropertyCards = ({ isHomePage = false, properties }: { isHomePage?: boolea
                         />
 
                         <Chip
-                          label="AVAILABLE"
+                          label={item?.status}
                           sx={{
                             position: 'absolute',
                             bottom: 8,
@@ -92,7 +93,8 @@ const PropertyCards = ({ isHomePage = false, properties }: { isHomePage?: boolea
                             backgroundColor: '#FFD700',
                             fontWeight: 'bold',
                             fontSize: '12px',
-                            borderRadius: 0
+                            borderRadius: 0,
+                            textTransform: 'uppercase'
                           }}
                         />
                       </Box>

@@ -43,7 +43,8 @@ export default function About({ isHomePage = false }: { isHomePage?: boolean }) 
         </Grid>
       )}
       <Grid
-        style={{ padding: '20px', marginTop: '15px', marginBottom: '100px' }}
+        style={{ marginTop: '15px', marginBottom: '100px' }}
+        p={{ xl: '20px 150px 20px 150px', md: '20px 110px 20px 110px', xs: '20px 50px 20px 50px' }}
         container
         spacing={5}
         justifyContent="center"

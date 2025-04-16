@@ -1,4 +1,4 @@
-import { Box, Button, Grid, IconButton, MenuItem, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, IconButton, MenuItem, TextField, Typography, useMediaQuery } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
@@ -24,6 +24,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const SearchProperty = ({ onClickSearch, search }: { onClickSearch: any; search?: any }) => {
+  const isSmallScreen = useMediaQuery('(max-width:1080px)');
   const initialState = {
     bathrooms: '',
     bedrooms: '',
@@ -256,6 +257,7 @@ const SearchProperty = ({ onClickSearch, search }: { onClickSearch: any; search?
         sx={{
           backgroundColor: 'white',
           padding: '10px',
+          marginLeft: isSmallScreen ? '-10px' : '0px',
           borderRadius: '20px',
           boxShadow: '6px 6px 15px rgba(0, 0, 0, 0.5)',
           transition: 'all 0.3s ease-in-out'
@@ -271,8 +273,6 @@ const SearchProperty = ({ onClickSearch, search }: { onClickSearch: any; search?
               alignItems: 'center',
               justifyContent: 'center',
               gap: '20px',
-              padding: '10px',
-              paddingTop: '0px',
               borderRight: { md: '1px solid gray', xs: 'none' },
               width: '100%'
             }}
@@ -290,8 +290,6 @@ const SearchProperty = ({ onClickSearch, search }: { onClickSearch: any; search?
               alignItems: 'center',
               justifyContent: 'center',
               gap: '20px',
-              padding: '10px',
-              paddingTop: '0px',
               borderRight: { md: '1px solid gray', xs: 'none' },
               width: '100%'
             }}
@@ -308,14 +306,13 @@ const SearchProperty = ({ onClickSearch, search }: { onClickSearch: any; search?
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              marginRight: isSmallScreen ? '12px' : '0px',
               gap: '20px',
-              padding: '10px',
-              paddingTop: '0px',
               width: '100%',
               maxWidth: '400px'
             }}
           >
-            <Icon name="pound" styles={{ height: '22px', width: '22px' }} />
+            {!isSmallScreen && <Icon name="pound" styles={{ height: '22px', width: '22px' }} />}
             <Typography sx={{ fontSize: '16px', fontWeight: 600 }}>{messages.price}</Typography>
             <TextField
               size="small"

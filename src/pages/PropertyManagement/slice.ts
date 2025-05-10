@@ -15,7 +15,7 @@ const propertySlice = createSlice({
   name: 'propertyManagement',
   initialState,
   reducers: {
-    getAllProperties: (state, action: PayloadAction<Filter>) => {
+    getAllProperties: (state, action: PayloadAction<{ category?: string }>) => {
       state.loading = true;
       state.error = '';
     },

@@ -23,3 +23,15 @@ export const getDecodedQueryParams = (searchQuery?: string): { [key: string]: st
       }
       return accumulatedData;
     }, {});
+
+/**
+ * Get decoded query params in the url
+ * @return {Object}
+ */
+
+export function getEncodedQueryParams(params: { [key: string]: string }) {
+  return Object.keys(params)
+    .map((key: string): any => params[key] && [key, encodeURIComponent(params[key])].join('='))
+    .filter(it => Boolean(it))
+    .join('&');
+}

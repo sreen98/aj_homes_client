@@ -9,6 +9,7 @@ export interface Filter {
   bathroom: Number | null;
   bedroom: Number | null;
   price: { from: null | Number; to: null | Number };
+  category?: string;
 }
 
 export interface IProperty {
@@ -35,4 +36,8 @@ export interface IProperty {
   ytLink: string;
   mapLink: string;
   address: string;
+  moveInDate: string;
+  isFeatured: boolean;
+  category: string;
+  priceDesc: string;
 }

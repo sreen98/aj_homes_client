@@ -1,5 +1,5 @@
 import * as React from 'react';
-import NavBar from 'container/Nav';
+import NavBar from 'container/Navbar';
 import Footer from 'container/Footer';
 import { Accordion, AccordionDetails, AccordionSummary, Grid, Typography } from '@mui/material';
 import { FAQData } from './data';
@@ -9,7 +9,7 @@ export default function FAQManagement() {
   return (
     <>
       <NavBar />
-      <div style={{ marginTop: '6rem', marginBottom: '3rem' }}>
+      <div style={{ marginTop: '8rem', marginBottom: '3rem' }}>
         <Typography variant="h4" align="center" gutterBottom style={{ color: 'black' }} pb={'1rem'}>
           Frequently Asked Questions
         </Typography>

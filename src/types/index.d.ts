@@ -58,5 +58,9 @@ export interface IProperty {
   status: string;
   ytLink: string;
   mapLink: string;
+  moveInDate: string;
+  isFeatured: boolean;
+  category: string;
   address: string;
+  priceDesc: string;
 }

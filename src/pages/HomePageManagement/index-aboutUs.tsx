@@ -1,6 +1,6 @@
 import * as React from 'react';
 import About from './container/About';
-import NavBar from 'container/Nav';
+import NavBar from 'container/Navbar';
 import Footer from 'container/Footer';
 
 export default function AboutUsManagement() {

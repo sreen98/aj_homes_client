@@ -1,5 +1,5 @@
 import Footer from 'container/Footer';
-import NavBar from 'container/Nav';
+import NavBar from 'container/Navbar';
 import Testimonial from './container/Testimonials';
 
 export default function TestimonialManagement() {

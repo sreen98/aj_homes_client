@@ -1,4 +1,4 @@
 
-    export const iconMap = { 'profile-2user': () => import('./profile-2user-icon'),};
-    export type iconMapKeys = 'profile-2user';
+    export const iconMap = { 'bathrooms': () => import('./bathrooms-icon'), 'bedrooms': () => import('./bedrooms-icon'), 'customer-support': () => import('./customer-support-icon'), 'location': () => import('./location-icon'), 'photo-camera': () => import('./photo-camera-icon'), 'pound': () => import('./pound-icon'), 'profile-2user': () => import('./profile-2user-icon'), 'share': () => import('./share-icon'), 'stairs': () => import('./stairs-icon'), 'tool': () => import('./tool-icon'),};
+    export type iconMapKeys = 'bathrooms' | 'bedrooms' | 'customer-support' | 'location' | 'photo-camera' | 'pound' | 'profile-2user' | 'share' | 'stairs' | 'tool';
   

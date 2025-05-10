@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Box, Button, Card, CardMedia, FormControl, Grid, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import NavBar from 'container/Nav';
+import NavBar from 'container/Navbar';
 import Footer from 'container/Footer';
 import { Enquiry } from './types';
 import { useDispatch } from 'react-redux';
@@ -38,7 +38,7 @@ export default function EnquiryManagement() {
 
   useEffect(() => {
     dispatch(getSiteStatus());
-  });
+  }, []);
 
   const dispatch = useDispatch();
   const { propertyId } = getDecodedQueryParams();
